@@ -18,8 +18,8 @@ class Gejala extends Model
         'blf',
     ];
 
-    public function Penyakit()
+    public function penyakit()
     {
-        return $this->belongsTo(Penyakit::class, 'id','penyakit_id');
+        return $this->belongsTo(Penyakit::class, 'penyakit_id');
     }
 }

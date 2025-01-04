@@ -7,15 +7,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="../login_mhs/fonts/icomoon/style.css">
+    <link rel="stylesheet" href="{{ asset('login_mhs/fonts/icomoon/style.css') }}">
 
-    <link rel="stylesheet" href="../login_mhs/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="{{ asset('login_mhs/css/owl.carousel.min.css') }}">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="../login_mhs/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('login_mhs/css/bootstrap.min.css') }}">
 
     <!-- Style -->
-    <link rel="stylesheet" href="../login_mhs/css/style.css">
+    <link rel="stylesheet" href="{{ asset('login_mhs/css/style.css') }}">
 
     <title>Login</title>
 </head>
@@ -33,7 +33,9 @@
                             <div class="form-block">
                                 <div class="mb-4">
                                     <h3>Sign In to <strong></strong></h3>
-                                    {{-- <p class="mb-4">Lorem ipsum dolor sit amet elit. Sapiente sit aut eos consectetur adipisicing.</p> --}}
+                                    <div class="mb-4">
+                                        @include('components.message')
+                                    </div>
                                 </div>
                                 <form method="POST" action="{{ route('login') }}">
                                     @csrf
@@ -78,7 +80,7 @@
 
                                     <input type="submit" value="Log In"
                                         class="btn btn-pill text-white btn-block btn-primary">
-                                    <span class="d-block text-center my-4 text-muted"> <a href="register1">Belum
+                                    <span class="d-block text-center my-4 text-muted"> <a href="{{ route('register') }}">Belum
                                             Mendaftar ?</a></span>
                                 </form>
                             </div>
@@ -92,10 +94,10 @@
     </div>
 
 
-    <script src="../login_mhs/js/jquery-3.3.1.min.js"></script>
-    <script src="../login_mhs/js/popper.min.js"></script>
-    <script src="../login_mhs/js/bootstrap.min.js"></script>
-    <script src="../login_mhs/js/main.js"></script>
+    <script src="{{ asset('login_mhs/js/jquery-3.3.1.min.js') }}"></script>
+    <script src="{{ asset('login_mhs/js/popper.min.js') }}"></script>
+    <script src="{{ asset('login_mhs/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('login_mhs/js/main.js') }}"></script>
 </body>
 
 </html>

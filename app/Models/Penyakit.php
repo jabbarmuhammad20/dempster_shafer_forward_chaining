@@ -16,8 +16,8 @@ class Penyakit extends Model
         'nama_penyakit',
     ];
 
-    public function Gejala()
+    public function gejala()
     {
-        return $this->hasMany(Gejala::class, 'id','penyakit_id');
+        return $this->hasMany(Gejala::class, 'penyakit_id');
     }
 }
