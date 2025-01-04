@@ -1,4 +1,4 @@
-@extends('layouts.master_admin')
+@extends('layouts.dashboard')
 @section('content')
 {{-- Notif Alert --}}
 @include('sweetalert::alert')

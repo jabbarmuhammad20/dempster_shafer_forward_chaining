@@ -36,24 +36,23 @@ class AuthController extends Controller
             'password' => 'required|string|min:8|confirmed',
         ]);
 
-        DB::beginTransaction();
         try {
-            $user = User::create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'type' => '0',
-                'password' => Hash::make($request->password),
-            ]);
+            DB::transaction(function () use ($request) {
+                $user = User::create([
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'type' => '0',
+                    'password' => Hash::make($request->password),
+                ]);
 
-            Pasien::create([
-                'user_id' => $user->id,
-            ]);
+                Pasien::create([
+                    'user_id' => $user->id,
+                ]);
+            });
 
-            DB::commit();
             Alert::success('Berhasil Membuat Akun', 'Silahkan Login Kembali');
-            return redirect()->route('page.login');
+            return redirect()->route('login');
         } catch (\Exception $e) {
-            DB::rollBack();
             Alert::error('Gagal Membuat Akun', 'Terjadi kesalahan, silahkan coba lagi.');
             return redirect()->back()->withInput();
         }

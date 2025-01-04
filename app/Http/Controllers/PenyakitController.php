@@ -28,48 +28,27 @@ class PenyakitController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'kode' => 'required|unique:penyakit,kode',
-            'nama_penyakit' => 'required|string|max:255',
-        ]);
+        $this->validateRequest($request);
 
-        DB::beginTransaction();
-        try {
-            $data = new Penyakit;
-            $data->kode = $request->kode;
-            $data->nama_penyakit = $request->nama_penyakit;
-            $data->save();
-            DB::commit();
+        DB::transaction(function () use ($request) {
+            Penyakit::create($request->all());
             Alert::toast('Data berhasil ditambahkan', 'success');
-            return redirect()->route('admin.penyakit.index');
-        } catch (\Exception $e) {
-            DB::rollBack();
-            Alert::toast('Terjadi kesalahan: ' . $e->getMessage(), 'error');
-            return redirect()->back();
-        }
+        });
+
+        return redirect()->route('admin.penyakit.index');
     }
 
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'kode' => 'required|unique:penyakit,kode,' . $id,
-            'nama_penyakit' => 'required|string|max:255',
-        ]);
+        $this->validateRequest($request, $id);
 
-        DB::beginTransaction();
-        try {
-            $data = Penyakit::find($id);
-            $data->kode = $request->kode;
-            $data->nama_penyakit = $request->nama_penyakit;
-            $data->save();
-            DB::commit();
+        DB::transaction(function () use ($request, $id) {
+            $data = Penyakit::findOrFail($id);
+            $data->update($request->all());
             Alert::toast('Data berhasil diubah', 'success');
-            return redirect()->route('admin.penyakit.index');
-        } catch (\Exception $e) {
-            DB::rollBack();
-            Alert::toast('Terjadi kesalahan: ' . $e->getMessage(), 'error');
-            return redirect()->back();
-        }
+        });
+
+        return redirect()->route('admin.penyakit.index');
     }
 
     public function detail($id)
@@ -77,7 +56,7 @@ class PenyakitController extends Controller
         try {
             return view('admin.penyakit.detail', [
                 'title' => 'Detail Penyakit',
-                'penyakit' => Penyakit::with('gejala')->find($id)
+                'penyakit' => Penyakit::with('gejala')->findOrFail($id)
             ]);
         } catch (\Exception $e) {
             Alert::toast('Terjadi kesalahan: ' . $e->getMessage(), 'error');
@@ -87,17 +66,20 @@ class PenyakitController extends Controller
 
     public function destroy($id)
     {
-        DB::beginTransaction();
-        try {
-            $data = Penyakit::find($id);
+        DB::transaction(function () use ($id) {
+            $data = Penyakit::findOrFail($id);
             $data->delete();
-            DB::commit();
             Alert::toast('Data berhasil dihapus', 'success');
-            return redirect()->route('admin.penyakit.index');
-        } catch (\Exception $e) {
-            DB::rollBack();
-            Alert::toast('Terjadi kesalahan: ' . $e->getMessage(), 'error');
-            return redirect()->back();
-        }
+        });
+
+        return redirect()->route('admin.penyakit.index');
+    }
+
+    private function validateRequest(Request $request, $id = null)
+    {
+        $request->validate([
+            'kode' => 'required|unique:penyakit,kode,' . $id,
+            'nama_penyakit' => 'required|string|max:255',
+        ]);
     }
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PenyakitController;
 use App\Http\Controllers\GejalaController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -29,53 +30,45 @@ Route::get('register', function () {
 })->name('page.register');
 Route::post('register', [AuthController::class, 'register'])->name('register');
 
-/*------------------------------------------
---------------------------------------------
-All Normal Users Routes List
---------------------------------------------
---------------------------------------------*/
+Route::middleware('auth')->prefix('home')->name('home.')->group(function () {
+    Route::get('/', [HomeController::class, 'index'])->name('index');
 
-Route::post('logout', [AuthController::class, 'logout'])->name('logout');
+    Route::middleware('user-access:admin')->group(function () {
+        Route::controller(UserController::class)->prefix('pasien')->name('pasien.')->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::post('/store', 'store')->name('store');
+            Route::put('/update/{id}', 'update')->name('update');
+            Route::get('/detail/{id}', 'detail')->name('detail');
+            Route::delete('/destroy/{id}', 'destroy')->name('destroy');
+        });
 
-Route::middleware(['auth', 'user-access:user'])->group(function () {
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
-});
+        Route::controller(PenyakitController::class)->prefix('penyakit')->name('penyakit.')->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::post('/store', 'store')->name('store');
+            Route::put('/update/{id}', 'update')->name('update');
+            Route::get('/detail/{id}', 'detail')->name('detail');
+            Route::delete('/destroy/{id}', 'destroy')->name('destroy');
+        });
 
-/*------------------------------------------
---------------------------------------------
-All Admin Routes List
---------------------------------------------
---------------------------------------------*/
-Route::middleware(['auth', 'user-access:admin'])->prefix('admin')->name('admin.')->group(function () {
-    Route::get('/home', [HomeController::class, 'adminHome'])->name('home');
-    Route::get('/daftar', [AdminController::class, 'daftar'])->name('daftar');
-    Route::get('/gejala', [AdminController::class, 'gejala'])->name('gejala');
-    Route::post('/storeGejala', [AdminController::class, 'storeGejala'])->name('storeGejala');
-
-    //Penyakit
-    Route::controller(PenyakitController::class)->prefix('penyakit')->name('penyakit.')->group(function () {
-        Route::get('/', 'index')->name('index');
-        Route::post('/store', 'store')->name('store');
-        Route::put('/update/{id}', 'update')->name('update');
-        Route::get('/detail/{id}', 'detail')->name('detail');
-        Route::delete('/destroy/{id}', 'destroy')->name('destroy');
+        Route::controller(GejalaController::class)->prefix('gejala')->name('gejala.')->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::post('/store', 'store')->name('store');
+            Route::put('/update/{id}', 'update')->name('update');
+            Route::get('/detail/{id}', 'detail')->name('detail');
+            Route::delete('/destroy/{id}', 'destroy')->name('destroy');
+        });
     });
 
-    //Gejala
-    Route::controller(GejalaController::class)->prefix('gejala')->name('gejala.')->group(function () {
-        Route::get('/', 'index')->name('index');
-        Route::post('/store', 'store')->name('store');
-        Route::put('/update/{id}', 'update')->name('update');
-        Route::get('/detail/{id}', 'detail')->name('detail');
-        Route::delete('/destroy/{id}', 'destroy')->name('destroy');
+    Route::middleware('user-access:user')->group(function () {
+        Route::controller(UserController::class)->prefix('biodata')->name('biodata.')->group(function () {
+            Route::get('/{id}', 'bio')->name('index');
+            Route::put('/update/{id}', 'updateBio')->name('update');
+        });
+        Route::controller(KuisionerController::class)->prefix('kuisioner')->name('kuisioner.')->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::put('/store', 'store')->name('store');
+        });
     });
-});
 
-/*------------------------------------------
---------------------------------------------
-All Manager Routes List
---------------------------------------------
---------------------------------------------*/
-Route::middleware(['auth', 'user-access:manager'])->group(function () {
-    Route::get('/manager/home', [HomeController::class, 'managerHome'])->name('manager.home');
+    Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 });

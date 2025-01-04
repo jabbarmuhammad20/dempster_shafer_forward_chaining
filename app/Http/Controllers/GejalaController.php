@@ -18,7 +18,6 @@ class GejalaController extends Controller
             confirmDelete($title, $text);
 
             return view('admin.gejala.index', [
-            //dd([
                 'title' => 'Daftar Gejala',
                 'data' => Gejala::with('penyakit')->get(),
                 'penyakit' => Penyakit::all(),
@@ -31,32 +30,41 @@ class GejalaController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'kode' => 'required|unique:gejala,kode',
-            'deskripsi' => 'required|string|max:255',
-            'penyakit_id' => 'required|exists:penyakit,id',
-            'blf' => 'required|numeric|min:0|max:1',
-        ]);
+        $this->validateRequest($request);
 
-        DB::beginTransaction();
-        try {
-            $data = new Gejala;
-            $data->kode = $request->kode;
-            $data->deskripsi = $request->deskripsi;
-            $data->penyakit_id = $request->penyakit_id;
-            $data->blf = $request->blf;
-            $data->save();
-            DB::commit();
+        DB::transaction(function () use ($request) {
+            Gejala::create($request->all());
             Alert::toast('Data berhasil ditambahkan', 'success');
-            return redirect()->route('admin.gejala.index');
-        } catch (\Exception $e) {
-            DB::rollBack();
-            Alert::toast('Terjadi kesalahan: ' . $e->getMessage(), 'error');
-            return redirect()->back();
-        }
+        });
+
+        return redirect()->route('home.gejala.index');
     }
 
     public function update(Request $request, $id)
+    {
+        $this->validateRequest($request, $id);
+
+        DB::transaction(function () use ($request, $id) {
+            $gejala = Gejala::findOrFail($id);
+            $gejala->update($request->all());
+            Alert::toast('Data berhasil diubah', 'success');
+        });
+
+        return redirect()->route('home.gejala.index');
+    }
+
+    public function destroy($id)
+    {
+        DB::transaction(function () use ($id) {
+            $gejala = Gejala::findOrFail($id);
+            $gejala->delete();
+            Alert::toast('Data berhasil dihapus', 'success');
+        });
+
+        return redirect()->route('home.gejala.index');
+    }
+
+    private function validateRequest(Request $request, $id = null)
     {
         $request->validate([
             'kode' => 'required|unique:gejala,kode,' . $id,
@@ -64,38 +72,5 @@ class GejalaController extends Controller
             'penyakit_id' => 'required|exists:penyakit,id',
             'blf' => 'required|numeric|min:0|max:1',
         ]);
-
-        DB::beginTransaction();
-        try {
-            $data = Gejala::find($id);
-            $data->kode = $request->kode;
-            $data->deskripsi = $request->deskripsi;
-            $data->penyakit_id = $request->penyakit_id;
-            $data->blf = $request->blf;
-            $data->save();
-            DB::commit();
-            Alert::toast('Data berhasil diubah', 'success');
-            return redirect()->route('admin.gejala.index');
-        } catch (\Exception $e) {
-            DB::rollBack();
-            Alert::toast('Terjadi kesalahan: ' . $e->getMessage(), 'error');
-            return redirect()->back();
-        }
-    }
-
-    public function destroy($id)
-    {
-        DB::beginTransaction();
-        try {
-            $data = Gejala::find($id);
-            $data->delete();
-            DB::commit();
-            Alert::toast('Data berhasil dihapus', 'success');
-            return redirect()->route('admin.gejala.index');
-        } catch (\Exception $e) {
-            DB::rollBack();
-            Alert::toast('Terjadi kesalahan: ' . $e->getMessage(), 'error');
-            return redirect()->back();
-        }
     }
 }

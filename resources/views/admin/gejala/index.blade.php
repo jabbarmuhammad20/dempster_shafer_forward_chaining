@@ -1,4 +1,4 @@
-@extends('layouts.master_admin')
+@extends('layouts.dashboard')
 @section('content')
 @include('sweetalert::alert')
 
@@ -23,11 +23,11 @@
             <div class="card-header">
                 <h3>{{ $title }}</h3>
                 <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-create">
-                    Tambah Gejala
+                    Tambah
                 </button>
             </div>
             <div class="card-body">
-                <table class="table table-bordered table-striped">
+                <table id="example1" class="table table-bordered table-striped">
                     <thead>
                         <tr>
                             <th>No</th>
@@ -50,10 +50,10 @@
                                 <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modal-edit-{{ $gejala->id }}">
                                     <i class="fa fa-edit"></i>
                                 </button>
-                                <a href="{{ route('admin.gejala.destroy', $gejala->id) }}" class="btn btn-danger btn-sm" data-confirm-delete="true">
+                                <a href="{{ route('home.gejala.destroy', $gejala->id) }}" class="btn btn-danger btn-sm" data-confirm-delete="true">
                                     <i class="fa fa-trash"></i>
                                 </a>
-                                <form id="delete-form-{{ $gejala->id }}" action="{{ route('admin.gejala.destroy', $gejala->id) }}" method="POST" style="display: none;">
+                                <form id="delete-form-{{ $gejala->id }}" action="{{ route('home.gejala.destroy', $gejala->id) }}" method="POST" style="display: none;">
                                     @csrf
                                     @method('DELETE')
                                 </form>
@@ -70,7 +70,7 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <form action="{{ route('admin.gejala.update', $gejala->id) }}" method="POST">
+                                        <form action="{{ route('home.gejala.update', $gejala->id) }}" method="POST">
                                             @csrf
                                             @method('PUT')
                                             <div class="form-group">
@@ -117,7 +117,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('admin.gejala.store') }}" method="POST">
+                <form action="{{ route('home.gejala.store') }}" method="POST">
                     @csrf
                     <div class="form-group">
                         <label for="kode">Kode</label>
