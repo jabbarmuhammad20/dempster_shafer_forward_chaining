@@ -51,7 +51,7 @@ class AuthController extends Controller
             });
 
             Alert::success('Berhasil Membuat Akun', 'Silahkan Login Kembali');
-            return redirect()->route('login');
+            return redirect()->route('page.login');
         } catch (\Exception $e) {
             Alert::error('Gagal Membuat Akun', 'Terjadi kesalahan, silahkan coba lagi.');
             return redirect()->back()->withInput();

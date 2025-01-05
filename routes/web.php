@@ -7,6 +7,7 @@ use App\Http\Controllers\PenyakitController;
 use App\Http\Controllers\GejalaController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\KuisionerController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -66,7 +67,7 @@ Route::middleware('auth')->prefix('home')->name('home.')->group(function () {
         });
         Route::controller(KuisionerController::class)->prefix('kuisioner')->name('kuisioner.')->group(function () {
             Route::get('/', 'index')->name('index');
-            Route::put('/store', 'store')->name('store');
+            Route::post('/store', 'store')->name('store');
         });
     });
 

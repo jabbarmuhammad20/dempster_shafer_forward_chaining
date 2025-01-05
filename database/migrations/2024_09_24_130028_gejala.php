@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('gejala', function (Blueprint $table) {
             $table->id();
-            $table->bigint('penyakit_id');
+            $table->integer('penyakit_id');
             $table->string('kode');
             $table->string('deskripsi');
             $table->string('blf');
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('gejala');
     }
 };

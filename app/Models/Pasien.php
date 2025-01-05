@@ -17,10 +17,18 @@ class Pasien extends Model
         'tgl_lahir',
         'tempat_lahir',
         'alamat',
+        'blf',
+        'diagnosis',
+        'confidence'
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function penyakit()
+    {
+        return $this->belongsTo(Penyakit::class, 'penyakit_id', 'id');
     }
 }
