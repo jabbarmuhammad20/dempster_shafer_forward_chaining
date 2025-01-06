@@ -15,56 +15,98 @@ class GejalaSeeder extends Seeder
         $gejalas = [
             [
                 'kode' => 'G001',
-                'deskripsi' => 'Nyeri saat buang air kecil',
-                'penyakit_id' => 1, // Gonore
+                'deskripsi' => 'Saya seorang non-biner (menganggap dirinya termasuk, tidak termasuk atau bahkan gabungan dari laki-laki dan perempuan)',
+                'penyakit_id' => 2, // Biseksual
                 'blf' => 0.8,
             ],
             [
                 'kode' => 'G002',
-                'deskripsi' => 'Keluarnya cairan tidak normal dari alat kelamin',
-                'penyakit_id' => 1, // Gonore
+                'deskripsi' => 'Sering menonton drama/film BoysLove maupun GirlsLove',
+                'penyakit_id' => 2, // Biseksual
                 'blf' => 0.7,
             ],
             [
                 'kode' => 'G003',
-                'deskripsi' => 'Nyeri perut bagian bawah',
-                'penyakit_id' => 2, // Klamidia
+                'deskripsi' => 'Sering membaca novel/komik BoysLove maupun GirlsLove',
+                'penyakit_id' => 2, // Biseksual
                 'blf' => 0.6,
             ],
             [
                 'kode' => 'G004',
-                'deskripsi' => 'Luka pada alat kelamin',
-                'penyakit_id' => 3, // Sifilis
+                'deskripsi' => 'Memiliki rasa ingin tahu tentang dunia LGBTQ+',
+                'penyakit_id' => 2, // Biseksual
                 'blf' => 0.9,
             ],
             [
                 'kode' => 'G005',
-                'deskripsi' => 'Luka atau lepuhan pada alat kelamin',
-                'penyakit_id' => 4, // Herpes Genital
+                'deskripsi' => 'Bergaul dengan teman yang memang gay maupun lesbian',
+                'penyakit_id' => 2, // Biseksual
                 'blf' => 0.85,
             ],
             [
                 'kode' => 'G006',
-                'deskripsi' => 'Demam dan pembengkakan kelenjar getah bening',
-                'penyakit_id' => 5, // HIV/AIDS
+                'deskripsi' => 'Merasa berdebar ketika disentuh oleh sesama jenis',
+                'penyakit_id' => 1, // Homoseksual
                 'blf' => 0.75,
             ],
             [
                 'kode' => 'G007',
-                'deskripsi' => 'Gatal atau iritasi pada alat kelamin',
-                'penyakit_id' => 6, // Trikomoniasis
+                'deskripsi' => 'Merasa berdebar ketika disentuh oleh sesama jenis',
+                'penyakit_id' => 1, // Homoseksual
                 'blf' => 0.65,
             ],
             [
                 'kode' => 'G008',
-                'deskripsi' => 'Kuning pada kulit dan mata (jaundice)',
-                'penyakit_id' => 7, // Hepatitis B
+                'deskripsi' => 'Merasa berdebar ketika disentuh oleh sesama jenis',
+                'penyakit_id' => 1, // Homoseksual
                 'blf' => 0.7,
             ],
             [
                 'kode' => 'G009',
-                'deskripsi' => 'Kutil pada alat kelamin',
-                'penyakit_id' => 8, // Human Papillomavirus (HPV)
+                'deskripsi' => 'Memiliki trauma terhadap lawan jenis',
+                'penyakit_id' => 1, // Homoseksual
+                'blf' => 0.8,
+            ],
+            [
+                'kode' => 'G010',
+                'deskripsi' => 'Merasa berdebar ketika disentuh oleh lawan dan sesama jenis',
+                'penyakit_id' => 2, // Biseksual
+                'blf' => 0.8,
+            ],
+            [
+                'kode' => 'G011',
+                'deskripsi' => 'Tertarik untuk melakukan kontak fisik dengan lawan dan sesama jenis (seperti berpelukan atau mencium)',
+                'penyakit_id' => 2, // Biseksual
+                'blf' => 0.8,
+            ],
+            [
+                'kode' => 'G012',
+                'deskripsi' => 'Pernah membayangkan fantasi terhadap lawan dan sesama jenis',
+                'penyakit_id' => 2, // Biseksual
+                'blf' => 0.8,
+            ],
+            [
+                'kode' => 'G013',
+                'deskripsi' => 'Merasa berdebar ketika disentuh oleh lawan jenis',
+                'penyakit_id' => 3, // Heteroseksual
+                'blf' => 0.8,
+            ],
+            [
+                'kode' => 'G014',
+                'deskripsi' => 'Lebih tertarik untuk melakukan kontak fisik dengan lawan jenis (seperti berpelukan atau mencium)',
+                'penyakit_id' => 3, // Heteroseksual
+                'blf' => 0.8,
+            ],
+            [
+                'kode' => 'G015',
+                'deskripsi' => 'Pernah membayangkan fantasi terhadap lawan jenis',
+                'penyakit_id' => 3, // Heteroseksual
+                'blf' => 0.8,
+            ],
+            [
+                'kode' => 'G016',
+                'deskripsi' => 'Pernah membayangkan fantasi terhadap lawan jenis',
+                'penyakit_id' => 3, // Heteroseksual
                 'blf' => 0.8,
             ],
         ];

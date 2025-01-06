@@ -15,36 +15,17 @@ class PenyakitSeeder extends Seeder
         $penyakits = [
             [
                 'kode' => 'P001',
-                'nama_penyakit' => 'Gonore',
+                'nama_penyakit' => 'Homoseksual',
             ],
             [
                 'kode' => 'P002',
-                'nama_penyakit' => 'Klamidia',
+                'nama_penyakit' => 'Biseksual',
             ],
             [
                 'kode' => 'P003',
-                'nama_penyakit' => 'Sifilis',
+                'nama_penyakit' => 'Heteroseksual',
             ],
-            [
-                'kode' => 'P004',
-                'nama_penyakit' => 'Herpes Genital',
-            ],
-            [
-                'kode' => 'P005',
-                'nama_penyakit' => 'HIV/AIDS',
-            ],
-            [
-                'kode' => 'P006',
-                'nama_penyakit' => 'Trikomoniasis',
-            ],
-            [
-                'kode' => 'P007',
-                'nama_penyakit' => 'Hepatitis B',
-            ],
-            [
-                'kode' => 'P008',
-                'nama_penyakit' => 'Human Papillomavirus (HPV)',
-            ],
+           
         ];
 
         foreach ($penyakits as $penyakit) {
